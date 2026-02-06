@@ -1,5 +1,4 @@
-![GitHub stars](https://img.shields.io/github/stars/MrNanliu/My_Bionic_hand_project)
-![GitHub license](https://img.shields.io/github/license/MrNanliu/My_Bionic_hand_project)
+![GitHub License](https://img.shields.io/github/license/MrNanliu/My_Bionic_hand_project?color=blue)
 
 
 # 🦾 Bionic Hand Control System (EMG-Based)
