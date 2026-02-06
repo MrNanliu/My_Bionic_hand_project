@@ -1,3 +1,7 @@
+![GitHub stars](https://img.shields.io/github/stars/MrNanliu/My_Bionic_hand_project)
+![GitHub license](https://img.shields.io/github/license/MrNanliu/My_Bionic_hand_project)
+
+
 # 🦾 Bionic Hand Control System (EMG-Based)
 ### *A Modular Approach to Human-Machine Interface using ESP32 and Aero-Hand-Open SDK*
 
@@ -29,7 +33,11 @@ My_Bionic_Hand_Project/
 # 🛠️ Installation & Setup
 
 1. Firmware(ESP32)
-    1. Open ```  firmware/EMG_Acquisition/EMG_Acquisition.ino``` in Arduino IDE.
+    1. Open
+    ```bash
+    firmware/EMG_Acquisition/EMG_Acquisition.ino
+    ```
+    in Arduino IDE.
     2. Install the ESP32 board support package (by Espressif Systems).
     3. Upload the code to your ESP32. Use the Serial Plotter (115200 Baud) to verify the signal wave.
 
@@ -86,7 +94,10 @@ My_Bionic_Hand_Project/
 # 🛠️ 安装与配置
 
 1. 固件端 (ESP32)
-    1. 使用 Arduino IDE 打开 ```  firmware/EMG_Acquisition/EMG_Acquisition.ino``` 
+    1. 使用 Arduino IDE 打开
+    ``` bash
+    firmware/EMG_Acquisition/EMG_Acquisition.ino
+    ``` 
     2. I安装 ESP32 开发板支持包 (Espressif Systems 官方版)。
     3. 将代码烧录至 ESP32。打开 串口绘图器 (115200 波特率) 验证波形输出。
 
