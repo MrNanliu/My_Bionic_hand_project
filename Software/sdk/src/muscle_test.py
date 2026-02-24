@@ -77,7 +77,7 @@ def main():
 
     # 计算黄金阈值 (取放松和发力的中间值)
     THRESHOLD = (relax_avg + clench_avg) // 2
-    print(f"\n✨ 校准完成！为你量身定制的黄金阈值为: 【 {THRESHOLD} 】 ✨\n")
+    print(f"\n✨ 校准完成！为你量身定制的阈值为: 【 {THRESHOLD} 】 ✨\n")
     print("=== 正式测试开始 (按 Ctrl+C 退出) ===")
 
     # ================= 正式工作阶段 =================
