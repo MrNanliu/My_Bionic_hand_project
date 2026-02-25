@@ -16,16 +16,25 @@ This repository contains the full stack for a 7-DOF (Degrees of Freedom) dextero
 
 ## 📂 Project Structure
 ```text
-My_Bionic_Hand_Project/
+aif-hku-capstone/
 ├── Firmware/              # ESP32 C++ Code (PlatformIO Project)
-│   └── ESP32_EMG_Sensor/  # sEMG signal processing & serial transmission (main.cpp)
+│   └── ESP32_EMG_Sensor/  # sEMG signal processing & serial transmission
+│
+├── Hardware/              # Mechanical Design & PCBs
+│   └── [CAD Files, Schematics, BOM]
+│
 ├── Software/              # Python Control System
 │   └── sdk/
 │       ├── aero_open_sdk/ # Robotic hand drivers
-│       └── src/
-│           └── muscle_test.py # Main logic with filtering & dynamic thresholds
-├── Hardware/              # Documentation & Schematics
-│   └── BOM.csv            # Bill of Materials
+│       └── src/           # Main logic (muscle_test.py)
+│
+├── Project_Docs/          # 📄 Documentation & Deliverables (Gitea Archive)
+│   ├── Reports/           # Milestone reports (Inception, Interim, Final)
+│   ├── PowerPoints/       # Presentation slides for reviews
+│   ├── Gantt_Charts/      # Project timeline and management
+│   ├── Literatures/       # Reference papers and research materials
+│   └── doc-tetheria-cad/  # Reference CAD models
+│
 └── README.md              # Project documentation
 
 ```
@@ -34,32 +43,25 @@ My_Bionic_Hand_Project/
 
 # 🛠️ Installation & Setup
 
-1. Firmware (ESP32)
+### 1. Firmware (ESP32)
 1. Install **VS Code** and the **PlatformIO** extension.
 2. Open the `Firmware/ESP32_EMG_Sensor` folder in VS Code.
 3. Connect your ESP32 via USB and click the **Upload (→)** button on the PlatformIO bottom status bar.
 
-
-2. Software (Python)
+### 2. Software (Python)
 1. Ensure you have Python 3.8+ installed (Anaconda recommended).
 2. Install required dependencies:
 
-
-```bash
-pip install pyserial
-
-```
-
+   ```bash
+   pip install pyserial
+   ```
 
 3. Connect your ESP32 and the Robotic Hand to your PC.
 4. Run the control script:
 
-
-```bash
-python Software/sdk/src/muscle_test.py
-
-```
-
+    ```bash
+    python Software/sdk/src/muscle_test.py
+    ```
 ---
 
 # 🚀 Roadmap
@@ -93,16 +95,25 @@ python Software/sdk/src/muscle_test.py
 ## 📂 项目结构
 
 ```text
-My_Bionic_Hand_Project/
+aif-hku-capstone/
 ├── Firmware/              # ESP32 C++ 代码 (PlatformIO 工程)
-│   └── ESP32_EMG_Sensor/  # 肌电信号处理与串口发送 (main.cpp)
+│   └── ESP32_EMG_Sensor/  # 肌电信号处理与串口发送
+│
+├── Hardware/              # 硬件资料 (机械设计与 PCB 图纸)
+│   └── [CAD 文件, 电路图, BOM]
+│
 ├── Software/              # Python 控制系统 (软件)
 │   └── sdk/
 │       ├── aero_open_sdk/ # 机械手底层驱动 SDK
-│       └── src/
-│           └── muscle_test.py # 主控制逻辑、滤波算法与阈值判定
-├── Hardware/              # 硬件资料与图纸
-│   └── BOM.csv            # 物料清单 (BOM)
+│       └── src/           # 主控制逻辑 (muscle_test.py)
+│
+├── Project_Docs/          # 📄 项目文档归档 (Gitea 同步)
+│   ├── Reports/           # 阶段性报告 (开题、中期、结题)
+│   ├── PowerPoints/       # 演示 PPT
+│   ├── Gantt_Charts/      # 项目进度甘特图
+│   ├── Literatures/       # 参考文献
+│   └── doc-tetheria-cad/  # 参考 CAD 模型
+│
 └── README.md              # 项目说明文档
 
 ```
@@ -111,32 +122,27 @@ My_Bionic_Hand_Project/
 
 # 🛠️ 安装与配置
 
-1. 固件端 (ESP32)
+### 1. 固件端 (ESP32)
 1. 安装 **VS Code** 及 **PlatformIO** 插件。
 2. 在 VS Code 中直接打开 `Firmware/ESP32_EMG_Sensor` 文件夹。
 3. 将 ESP32 通过 USB 连接电脑，点击底部蓝色状态栏的 **上传 (→)** 按钮完成编译烧录。
 
-
-2. 软件端 (Python)
+### 2. 软件端 (Python)
 1. 确保电脑已安装 Python 3.8+ (推荐使用 Anaconda 创建虚拟环境)。
 2. 安装必要依赖库:
 
+    ```bash
+    pip install pyserial
 
-```bash
-pip install pyserial
-
-```
-
+    ```
 
 3. 将 ESP32 和机械手通过 USB 连接至电脑。
 4. 运行智能控制脚本:
+ 
+    ```bash
+    python Software/sdk/src/muscle_test.py
 
-
-```bash
-python Software/sdk/src/muscle_test.py
-
-```
-
+    ```
 
 
 ---
