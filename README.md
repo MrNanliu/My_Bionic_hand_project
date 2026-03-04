@@ -98,7 +98,7 @@ My_Bionic_hand_project/
 
 # ⚖️ Disclaimer & Safety
 
-**1. Academic Use Only**: This project is developed by **周礼昊(Liao Zhou)** for the MSc IDT program at HKU. It is intended for research purposes.
+**1. Academic Use Only**: This project is developed by **周礼昊 (Lihao ZHOU)** for the MSc IDT program at HKU. It is intended for research purposes.
 **2. No Warranty**: The software/hardware designs are provided "AS IS". The author, HKU, and Sustech Intelligent Sensing accept no liability for damages.
 **3. Safety Warning**: This project uses **high-current (10A)** power supplies and high-torque actuators. Use with extreme caution.
 **4. Not a Medical Device**: This is a robotic prototype and is **NOT** a certified medical prosthetic.
@@ -207,7 +207,7 @@ My_Bionic_hand_project/
 
 # ⚖️ 免责声明与安全警告
 
-**1. 仅限学术用途**: 本项目由 **周礼昊 (Liao Zhou)** 开发，属于香港大学 MSc IDT 课程研究成果.
+**1. 仅限学术用途**: 本项目由 **周礼昊 (Lihao ZHOU)** 开发，属于香港大学 MSc IDT 课程研究成果.
 **2. 不提供担保**: 软件及硬件设计按“原样”提供，作者、校方及合作企业不对使用过程中的损坏负责.
 **3. 安全警告**: 系统涉及 **10A 大电流** 及高扭矩舵机，请严格遵守用电安全规范。
 **4. 非医疗设备**: 本项目为仿生机器人原型，**严禁**用于临床医疗或作为义肢替代品.
