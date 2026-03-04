@@ -1,4 +1,5 @@
 # 🦾 sEMG-Based Bionic Hand Controller
+
 ### *A Modular Human-Machine Interface based on TetherIA Open Architecture*
 
 <p align="center">
@@ -12,7 +13,9 @@
 ---
 
 ### ℹ️ Project Affiliation
+
 This project is a collaborative initiative between:
+
 * **Institution**: **The University of Hong Kong (HKU)**, Faculty of Engineering (MSc in Innovative Design and Technology).
 * **Industry Partner**: **Sustech Intelligent Sensing Co., Ltd. (南科智能传感有限公司)**.
 
@@ -21,6 +24,7 @@ It focuses on developing a robust sEMG signal processing framework and integrati
 ---
 
 ## 🌟 Key Features (v0.2.0)
+
 * **Advanced Firmware Architecture**: Migrated to **PlatformIO/VS Code** for modular C++ development on ESP32-S3.
 * **Optimized Hand Control**:
     * **Smart Homing**: Custom auto-calibration logic for precise initial thumb posture (-10° abduction / +65° flexion).
@@ -29,29 +33,34 @@ It focuses on developing a robust sEMG signal processing framework and integrati
 * **7-DOF Control**: Full dexterity control utilizing 7x Feetech servos with current/temperature protection.
 
 ## 📂 Project Structure
+
 ```text
 My_Bionic_hand_project/
 ├── Firmware/                  # ESP32-S3 Firmware Projects
-│   ├── Aero_Hand_Controller/  # [CORE] Main Bionic Hand Firmware (PlatformIO Project)
+│   ├── Aero_Hand_Controller/  # [CORE] Main Bionic Hand Firmware
 │   ├── ESP32_EMG_Sensor/      # EMG Signal Acquisition Firmware
 │   └── _OLD_EMG_Firmware/     # Legacy/Backup Archives
 │
-├── Hardware/                  # Mechanical & Electrical Documentation
-│   ├── BoM.xlsx               # Bill of Materials (Updated)
-│   └── BoM.ods                # Open Document Spreadsheet format
+├── Hardware/                  # Mechanical & Electrical Design (TetherIA Source)
+│   ├── Assembly/              # Assembly guides
+│   ├── CAD/                   # 3D Models
+│   ├── PCB/                   # Circuit Schematics
+│   └── LICENSE                # Hardware Open Source License
 │
 ├── Software/                  # Python Control System
-│   ├── sdk/                   # Core Drivers & GUI (aero_open_gui.py)
+│   ├── sdk/                   # Core Drivers & GUI
 │   ├── control_scripts/       # Experimental Signal Processing Scripts
 │   └── requirements.txt       # Python Dependencies
 │
 ├── Project_Docs/              # 📄 Deliverables & Research Archives
-│   ├── Reports/               # Milestone Reports (Inception/Interim/Final)
-│   ├── PowerPoints/           # Presentation Slides
+│   ├── doc-tetheria-cad/      # Reference Mechanical Models
 │   ├── Gantt_Charts/          # Project Timeline Management
 │   ├── Literatures/           # Reference Papers
-│   └── doc-tetheria-cad/      # Reference Mechanical Models
+│   ├── PowerPoints/           # Presentation Slides
+│   └── Reports/               # Milestone Reports
 │
+├── .gitignore
+├── LICENSE                    # Project Code License (e.g., MIT)
 └── README.md                  # Project Documentation
 
 ```
@@ -139,16 +148,18 @@ Special thanks to **TetherIA** for the open-source Aero Hand mechanical design, 
 ```text
 My_Bionic_hand_project/
 ├── Firmware/                  # ESP32-S3 固件工程
-│   ├── Aero_Hand_Controller/  # [核心] 仿生手主控固件 (PlatformIO 工程)
+│   ├── Aero_Hand_Controller/  # [核心] 仿生手主控固件
 │   ├── ESP32_EMG_Sensor/      # 肌电信号采集固件
 │   └── _OLD_EMG_Firmware/     # 旧版/备份归档
 │
-├── Hardware/                  # 机械与电子文档
-│   ├── BoM.xlsx               # 物料清单 (已更新)
-│   └── BoM.ods                # 开源文档格式表格
+├── Hardware/                  # 机械与电子设计 (TetherIA 源码)
+│   ├── Assembly/              # 装配指南
+│   ├── CAD/                   # 3D 模型文件
+│   ├── PCB/                   # 电路原理图
+│   └── LICENSE                # 硬件开源协议
 │
 ├── Software/                  # Python 控制系统
-│   ├── sdk/                   # 核心驱动与 GUI (aero_open_gui.py)
+│   ├── sdk/                   # 核心驱动与 GUI
 │   ├── control_scripts/       # 实验性信号处理脚本
 │   └── requirements.txt       # Python 依赖库列表
 │
@@ -157,10 +168,10 @@ My_Bionic_hand_project/
 │   ├── Gantt_Charts/          # 项目进度管理
 │   ├── Literatures/           # 参考文献
 │   ├── PowerPoints/           # 演示 PPT
-│   └── Reports/               # 阶段性报告 (开题/中期/结题)
+│   └── Reports/               # 阶段性报告
 │
 ├── .gitignore
-├── LICENSE
+├── LICENSE                    # 项目代码协议 (如 MIT)
 └── README.md                  # 项目说明文档
 
 ```
@@ -214,3 +225,38 @@ My_Bionic_hand_project/
 
 ### 🙏 致谢
 特别感谢 **TetherIA** 团队提供的 Aero Hand Open 开源机械设计，为本项目的控制算法研究提供了坚实的硬件基础.
+
+---
+
+# 📜 License / 许可
+
+This project involves multiple components with different open-source licenses. Please refer to the specific license files in each directory:
+
+### 1. Software & Firmware (Original Work)
+* **Scope**: All original code in `Firmware/Aero_Hand_Controller` and `Software/sdk`.
+* **License**: **MIT License** (See root `LICENSE`).
+* **Copyright**: © 2026 Zhou Lihao (Jason) & The University of Hong Kong.
+
+### 2. Hardware Design (Derivative Work)
+* **Scope**: Mechanical models (CAD), PCB designs, and Assembly guides in `Hardware/`.
+* **Source**: Derived from **TetherIA (Aero Hand Open)**.
+* **License**: Subject to the original **TetherIA Hardware License** (See `Hardware/LICENSE`).
+    * *Note: Any modification to the hardware files must comply with the share-alike provisions of the original license.*
+
+### 3. Third-Party Libraries
+* **PlatformIO Libraries**: Libraries used in firmware (e.g., servo drivers, sensor libs) retain their original licenses (MIT/GPL/BSD) as specified in their respective folders.
+
+---
+### 1. 软件与固件 (原创部分)
+* **范围**: `Firmware/` 和 `Software/` 下的所有原创代码。
+* **协议**: **MIT 协议** (详见根目录 `LICENSE`)。
+* **版权**: © 2026 Zhou Lihao (Jason) & 香港大学。
+
+### 2. 硬件设计 (衍生部分)
+* **范围**: `Hardware/` 目录下的机械模型、PCB 设计及装配文档。
+* **来源**: 源自 **TetherIA (Aero Hand Open)** 开源项目。
+* **协议**: 遵循原作者的硬件开源协议 (详见 `Hardware/LICENSE`)。
+    * *注意: 对硬件图纸的任何修改均需遵守原协议的“相同方式共享 (Share-Alike)”条款。*
+
+### 3. 第三方库
+* 本项目固件中调用的第三方库 (如 PlatformIO 依赖库) 均保留其原始协议声明。
