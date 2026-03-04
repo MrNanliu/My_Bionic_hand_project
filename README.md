@@ -235,7 +235,7 @@ This project involves multiple components with different open-source licenses. P
 ### 1. Software & Firmware (Original Work)
 * **Scope**: All original code in `Firmware/Aero_Hand_Controller` and `Software/sdk`.
 * **License**: **MIT License** (See root `LICENSE`).
-* **Copyright**: © 2026 Zhou Lihao (Jason) & The University of Hong Kong.
+* **Copyright**: © 2026 ZHOU Lihao & The University of Hong Kong.
 
 ### 2. Hardware Design (Derivative Work)
 * **Scope**: Mechanical models (CAD), PCB designs, and Assembly guides in `Hardware/`.
@@ -250,7 +250,7 @@ This project involves multiple components with different open-source licenses. P
 ### 1. 软件与固件 (原创部分)
 * **范围**: `Firmware/` 和 `Software/` 下的所有原创代码。
 * **协议**: **MIT 协议** (详见根目录 `LICENSE`)。
-* **版权**: © 2026 Zhou Lihao (Jason) & 香港大学。
+* **版权**: © 2026 ZHOU Lihao & 香港大学。
 
 ### 2. 硬件设计 (衍生部分)
 * **范围**: `Hardware/` 目录下的机械模型、PCB 设计及装配文档。
