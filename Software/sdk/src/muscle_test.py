@@ -3,7 +3,6 @@ import time
 import sys
 import os
 
-# --- 自动寻找 SDK 路径 ---
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -17,7 +16,7 @@ except ImportError:
             pass 
 
 # ================= 配置区域 =================
-ESP32_PORT = 'COM3'   # <--- 确认端口
+ESP32_PORT = 'COM4'   # <--- 确认端口
 BAUD_RATE = 115200    
 # ===========================================
 
@@ -96,25 +95,34 @@ def main():
                         if len(history) > 8:  # 收集最近8个数据
                             history.pop(0)    # 踢掉最老的数据
                         smooth_val = sum(history) / len(history) # 计算平均值
+                        deadzone = THRESHOLD * 0.05
                         # -----------------------------------
                         
-                        if smooth_val < THRESHOLD:
+                        if smooth_val > (THRESHOLD + deadzone):
                             status = "【✊ 握拳指令】"
                             target_pose = [80.0] * 16 
-                        else:
+                        elif smooth_val < (THRESHOLD - deadzone):
                             status = "  🖐  张开指令  "
                             target_pose = [0.0] * 16
+                        else:
+                            pass
                         
-                        bar_len = int(smooth_val / 40)
+                        max_bar_width = 30
+                        bar_len = int((smooth_val / 4095) * max_bar_width)
                         bar = '█' * bar_len
+                        spaces = ' ' * (max_bar_width - bar_len)
+                        output = f"\r滤波信号: {int(smooth_val):4d} |{bar}{spaces}| {status}      "
                         # 打印平滑后的数值，肉眼终于能看清了！
-                        print(f"\r滤波信号: {int(smooth_val):4d} |{bar:<25}| {status}", end='')
+                        print(output, end='', flush=True)
 
                         if hand:
                             try:
                                 hand.set_joint_positions(target_pose)
                             except:
                                 pass
+                        
+                        if smooth_val < 50:
+                            status = "⚠️ 传感器失联"
 
                 except ValueError:
                     pass
