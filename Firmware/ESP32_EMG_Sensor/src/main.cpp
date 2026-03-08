@@ -1,19 +1,40 @@
 #include <Arduino.h>
 
-const int sensorPin = 34; // 刚才我们把信号线接在了 D34 引脚
+const int sensorPin = 34;
+const int windowSize = 20;     // 滤波窗口大小（20个样本求一次平均值）
+int readings[windowSize];      // 存储最近的样本
+int readIndex = 0;
+long total = 0;
+int baseline = 2048;           // ESP32 ADC 中点（12位下约为 1.65V）
 
 void setup() {
-  // 开启串口通信，波特率 115200 (必须与 Python 脚本一致)
-  Serial.begin(115200); 
+  Serial.begin(115200);
+  // 初始化数组
+  for (int i = 0; i < windowSize; i++) readings[i] = 0;
+  
+  // 建议：在这里可以加一个自动校准逻辑，记录前 2 秒的均值作为 baseline
 }
 
 void loop() {
-  // 读取 D34 引脚上的模拟电压值 (ESP32 的读取范围是 0 - 4095)
-  int sensorValue = analogRead(sensorPin); 
+  // 1. 读取原始值
+  int rawValue = analogRead(sensorPin);
   
-  // 将读取到的数字发送给电脑
-  Serial.println(sensorValue); 
+  // 2. 整流：减去基准线并取绝对值（这步最关键！）
+  int rectifiedValue = abs(rawValue - baseline);
   
-  // 延时 10 毫秒，控制采样率，避免把电脑串口卡死
-  delay(10); 
+  // 3. 简单平滑处理（滑动平均滤波）
+  total = total - readings[readIndex];
+  readings[readIndex] = rectifiedValue;
+  total = total + readings[readIndex];
+  readIndex = (readIndex + 1) % windowSize;
+  
+  int smoothedValue = total / windowSize;
+
+  // 4. 发送给电脑
+  // 建议同时发送原始值和滤波值，方便你在 Serial Plotter 里对比
+  Serial.print(rectifiedValue); // 蓝线：整流后的波动
+  Serial.print(" ");
+  Serial.println(smoothedValue); // 红线：平滑后的发力趋势（AI 想要的 Y）
+
+  delay(2); // 提高采样率到 500Hz
 }
