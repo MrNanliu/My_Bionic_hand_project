@@ -3,10 +3,9 @@
 ### *A Modular Human-Machine Interface based on TetherIA Open Architecture*
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/MrNanliu/My_Bionic_hand_project?color=blue" alt="License">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
   <img src="https://img.shields.io/badge/University-HKU-007D55" alt="HKU">
-  <img src="https://img.shields.io/badge/Collaborator-Sustech_Intelligent_Sensing-0056D2" alt="Sustech">
-  <img src="https://img.shields.io/badge/Program-MSc_IDT-E37222" alt="MSc IDT">
+  <img src="https://img.shields.io/badge/Programme-MSc_IDT-E37222" alt="MSc IDT">
   <img src="https://img.shields.io/badge/Firmware-PlatformIO-orange" alt="PlatformIO">
 </p>
 
@@ -14,23 +13,23 @@
 
 ### ℹ️ Project Affiliation
 
-This project is a collaborative initiative between:
+This project is an academic research initiative conducted at:
 
-* **Institution**: **The University of Hong Kong (HKU)**, Faculty of Engineering (MSc in Innovative Design and Technology).
-* **Industry Partner**: **Sustech Intelligent Sensing Co., Ltd. (南科智能传感有限公司)**.
+* **Institution**: **The University of Hong Kong (HKU)**, Faculty of Engineering (MSc in Innovative Design and Technology programme).
 
-It focuses on developing a robust sEMG signal processing framework and integrating it with the **TetherIA Aero Hand** hardware.
+It focuses on developing a robust sEMG signal processing framework and integrating it with the **TetherIA Aero Hand** hardware to evaluate human-machine interaction methodologies.
 
 ---
 
 ## 🌟 Key Features (v0.2.0)
 
-* **Advanced Firmware Architecture**: Migrated to **PlatformIO/VS Code** for modular C++ development on ESP32-S3.
-* **Optimized Hand Control**:
+* **Advanced Firmware Architecture**: Migrated to **PlatformIO/VS Code** for modular C++ development on the ESP32-S3 microcontroller.
+* **Hardware Status**: Procurement of professional-grade sEMG sensors is complete; physical integration and testing are scheduled for the next development phase to replace the preliminary experimental modules.
+* **Optimised Hand Control**:
     * **Smart Homing**: Custom auto-calibration logic for precise initial thumb posture (-10° abduction / +65° flexion).
-    * **Dynamic Restoration**: Hand automatically restores optimal extend positions upon non-power resets (e.g., USB reconnection).
-* **Signal Processing**: Supports real-time sEMG acquisition with anti-jitter algorithms (Moving Average Filter).
-* **7-DOF Control**: Full dexterity control utilizing 7x Feetech servos with current/temperature protection.
+    * **Dynamic Restoration**: The system automatically restores optimal extension positions upon non-power resets (e.g., USB reconnection).
+* **Signal Processing**: Supports real-time sEMG acquisition with integrated anti-jitter algorithms (Moving Average Filter) to mitigate hardware noise.
+* **7-DOF Control**: Full dexterity control utilising 7x Feetech serial bus servos with real-time current and temperature protection.
 
 ## 📂 Project Structure
 
@@ -38,11 +37,11 @@ It focuses on developing a robust sEMG signal processing framework and integrati
 My_Bionic_hand_project/
 ├── Firmware/                  # ESP32-S3 Firmware Projects
 │   ├── Aero_Hand_Controller/  # [CORE] Main Bionic Hand Firmware
-│   ├── ESP32_EMG_Sensor/      # EMG Signal Acquisition Firmware
+│   ├── ESP32_EMG_Sensor/      # sEMG Signal Acquisition Firmware
 │   └── _OLD_EMG_Firmware/     # Legacy/Backup Archives
 │
 ├── Hardware/                  # Mechanical & Electrical Design (TetherIA Source)
-│   ├── Assembly/              # Assembly guides
+│   ├── Assembly/              # Bill of Materials
 │   ├── CAD/                   # 3D Models
 │   ├── PCB/                   # Circuit Schematics
 │   └── LICENSE                # Hardware Open Source License
@@ -50,6 +49,10 @@ My_Bionic_hand_project/
 ├── Software/                  # Python Control System
 │   ├── sdk/                   # Core Drivers & GUI
 │   ├── control_scripts/       # Experimental Signal Processing Scripts
+│   ├── data_collection/       # Data Acquisition Pipelines
+│   │   ├── collected_data/    # Archive of recorded sEMG and vision datasets
+│   │   ├── sEMG_signal/       # Scripts for logging professional sEMG data
+│   │   └── Vision_capture/    # Scripts for camera-based feature extraction
 │   └── requirements.txt       # Python Dependencies
 │
 ├── Project_Docs/              # 📄 Deliverables & Research Archives
@@ -57,12 +60,12 @@ My_Bionic_hand_project/
 │   ├── Gantt_Charts/          # Project Timeline Management
 │   ├── Literatures/           # Reference Papers
 │   ├── PowerPoints/           # Presentation Slides
+│   ├── Relative_pics_&_videos/# Visual documentation and experiment recordings
 │   └── Reports/               # Milestone Reports
 │
 ├── .gitignore
 ├── LICENSE                    # Project Code License (e.g., MIT)
 └── README.md                  # Project Documentation
-
 ```
 
 ---
@@ -87,7 +90,7 @@ My_Bionic_hand_project/
     ```bash
     pip install -r Software/requirements.txt
     ```
-3.  **Hardware Connection**: Connect your ESP32-S3 and the Robotic Hand to your PC via USB.
+3.  **Hardware Connection**: Connect your ESP32-S3, the professional sEMG sensors, and the Robotic Hand to your PC via USB.
 4.  **Launch Control System**: Run the main GUI application:
     ```bash
     python Software/sdk/aero_open_gui.py
@@ -99,26 +102,26 @@ My_Bionic_hand_project/
 
 * [x] Simulation mode implementation.
 * [x] Python-Serial bridge logic.
-* [x] **Physical 7-DOF Robotic Hand Assembly & Calibration (v0.2.0).**
-* [ ] Integration of sEMG signal processing algorithms.
+* [x] Physical 7-DOF Robotic Hand Assembly & Calibration (v0.2.0).
+* [ ] **Integration of professional-grade sEMG sensors for high-fidelity data acquisition.**
+* [ ] Implementation of advanced sEMG signal processing algorithms.
 * [ ] Multi-channel signal classification (Machine Learning for gesture recognition).
 
 ---
-
 # ⚖️ Disclaimer & Safety
 
-**1. Academic Use Only**: This project is developed by **周礼昊 (Lihao ZHOU)** for the MSc IDT program at HKU. It is intended for research purposes.
-**2. No Warranty**: The software/hardware designs are provided "AS IS". The author, HKU, and Sustech Intelligent Sensing accept no liability for damages.
-**3. Safety Warning**: This project uses **high-current (10A)** power supplies and high-torque actuators. Use with extreme caution.
+**1. Academic Use Only**: This project is developed by **ZHOU Lihao** for the MSc IDT programme at HKU. It is strictly intended for academic research purposes.
+**2. No Warranty**: The software and hardware designs are provided "AS IS". The author and HKU accept no liability for any damages arising from the use of this repository.
+**3. Safety Warning**: This project utilises **high-current (10A)** power supplies and high-torque actuators. Ensure strict adherence to electrical safety protocols.
 **4. Not a Medical Device**: This is a robotic prototype and is **NOT** a certified medical prosthetic.
 
 ### 🙏 Acknowledgments
-Special thanks to **TetherIA** for the open-source Aero Hand mechanical design, which serves as the foundation for this control system research.
+Special thanks to the **TetherIA** team for the Aero Hand Open mechanical design, which serves as the hardware foundation for this research.
 
 ---
 
 ### 📅 Release History
-* **v0.2.0 (Current)**: Completed hardware assembly, migrated to PlatformIO, and implemented smart homing/auto-restoration logic.
+* **v0.2.0 (Current)**: Completed hardware assembly, migrated to PlatformIO, procured professional sEMG sensors, and implemented smart homing/auto-restoration logic.
 * **v0.1.0**: Initial hardware selection and basic servo testing.
 
 ---
@@ -127,20 +130,20 @@ Special thanks to **TetherIA** for the open-source Aero Hand mechanical design, 
 ### *基于 TetherIA 开源架构的模块化人机交互方案*
 
 ### ℹ️ 项目背景
-本项目为校企联合研发项目：
+本项目为学术研究项目：
 * **所属院校**: **香港大学 (HKU)** 工程学院 (MSc in Innovative Design and Technology 课程)。
-* **企业伙伴**: **南科智能传感有限公司 (Sustech Intelligent Sensing)**。
 
-本项目致力于开发一套鲁棒的 sEMG 信号处理框架，并将其与 **TetherIA Aero Hand** 开源硬件深度集成。
+本项目致力于开发一套鲁棒的 sEMG 信号处理框架，并将其与 **TetherIA Aero Hand** 开源硬件深度集成，以评估和优化人机交互方法。
 
 ---
 
 ## 🌟 核心特性 (v0.2.0)
 * **固件架构升级**: 全面迁移至 **PlatformIO/VS Code**，基于 ESP32-S3 进行模块化 C++ 开发。
+* **硬件准备阶段**: 已完成**专业级 sEMG 传感器**的采购，即将在下一开发阶段替换早期的基础测试模块，以进行高保真生理信号的集成与采集。
 * **运动控制优化**:
-    * **智能归位 (Smart Homing)**: 自定义自动校准算法，确保大拇指初始化至完美姿态（外展 -10° / 屈曲 +65°）。
+    * **智能归位 (Smart Homing)**: 自定义自动校准算法，确保大拇指初始化至精准姿态（外展 -10° / 屈曲 +65°）。
     * **热启动记忆**: 引入掉电保护逻辑，在非断电重启（如 USB 意外断开重连）时，机械手可自动恢复舒展状态，无需重新校准。
-* **信号处理**: 集成实时 sEMG 信号采集链路，内置防抖算法（滑动平均滤波器）以消除硬件噪声。
+* **信号处理**: 集成实时 sEMG 信号采集链路，内置防抖算法（滑动平均滤波器）以消除硬件电噪声。
 * **7 自由度控制**: 精准驱动 7 个飞特 (Feetech) 串行总线舵机，具备实时电流过载保护与温度监控功能。
 
 ## 📂 项目结构
@@ -149,18 +152,22 @@ Special thanks to **TetherIA** for the open-source Aero Hand mechanical design, 
 My_Bionic_hand_project/
 ├── Firmware/                  # ESP32-S3 固件工程
 │   ├── Aero_Hand_Controller/  # [核心] 仿生手主控固件
-│   ├── ESP32_EMG_Sensor/      # 肌电信号采集固件
+│   ├── ESP32_EMG_Sensor/      # sEMG 肌电信号采集固件
 │   └── _OLD_EMG_Firmware/     # 旧版/备份归档
 │
 ├── Hardware/                  # 机械与电子设计 (TetherIA 源码)
-│   ├── Assembly/              # 装配指南
+│   ├── Assembly/              # 物料清单
 │   ├── CAD/                   # 3D 模型文件
 │   ├── PCB/                   # 电路原理图
 │   └── LICENSE                # 硬件开源协议
 │
 ├── Software/                  # Python 控制系统
 │   ├── sdk/                   # 核心驱动与 GUI
-│   ├── control_scripts/       # 实验性信号处理脚本
+│   ├── control_scripts/       # 实验性控制算法脚本
+│   ├── data_collection/       # 数据采集管道
+│   │   ├── collected_data/    # 录制的 sEMG 与视觉数据集归档
+│   │   ├── sEMG_signal/       # 专业 sEMG 信号记录脚本
+│   │   └── Vision_capture/    # 基于摄像头的特征提取脚本
 │   └── requirements.txt       # Python 依赖库列表
 │
 ├── Project_Docs/              # 📄 交付物与研究归档
@@ -168,14 +175,13 @@ My_Bionic_hand_project/
 │   ├── Gantt_Charts/          # 项目进度管理
 │   ├── Literatures/           # 参考文献
 │   ├── PowerPoints/           # 演示 PPT
-│   └── Reports/               # 阶段性报告
+│   ├── Relative_pics_&_videos/# 实验录像与组装过程图片记录
+│   └── Reports/               # 学术报告草稿与定稿
 │
 ├── .gitignore
 ├── LICENSE                    # 项目代码协议 (如 MIT)
 └── README.md                  # 项目说明文档
-
 ```
-
 ---
 
 # 🛠️ 安装与配置
@@ -186,11 +192,11 @@ My_Bionic_hand_project/
 3. 将 ESP32 通过 USB 连接电脑，点击底部蓝色状态栏的 **上传 (→)** 按钮完成编译烧录。
 
 ### 1.2 固件端 (ESP32-S3)
-1.  安装 **VS Code** 及 **PlatformIO** 插件.
-2.  在 VS Code 中打开 `Firmware/Aero_Hand_Controller` 文件夹.
+1.  安装 **VS Code** 及 **PlatformIO** 插件。
+2.  在 VS Code 中打开 `Firmware/Aero_Hand_Controller` 文件夹。
 3.  通过 USB 连接 Seeed Studio XIAO ESP32S3 开发板。
 4.  点击 PlatformIO 底部状态栏的 **上传 (→)** 按钮。
-    * *注意: 必须连接 6V/10A 外部电源才能驱动舵机动作*.
+    * *注意: 必须连接 6V/10A 外部电源才能驱动舵机动作*。
 
 ### 2. 软件端 (Python)
 1.  **环境准备**: 确保已安装 Python 3.8+ (强烈推荐使用 Anaconda 管理虚拟环境)。
@@ -198,7 +204,7 @@ My_Bionic_hand_project/
     ```bash
     pip install -r Software/requirements.txt
     ```
-3.  **硬件连接**: 将 ESP32-S3 及机械手通过 USB 连接至电脑。
+3.  **硬件连接**: 将 ESP32-S3、专业 sEMG 传感器及机械手通过 USB 连接至电脑。
 4.  **启动系统**: 运行主控制 GUI 程序:
     ```bash
     python Software/sdk/aero_open_gui.py
@@ -210,21 +216,22 @@ My_Bionic_hand_project/
 
 * [x] 模拟模式实现 (已完成验证)。
 * [x] Python-串口通信链路搭建 (已完成验证)。
-* [x] **实体 7 自由度仿生手组装与运动校准 (v0.2.0)。**
-* [ ] sEMG 信号处理算法集成。
+* [x] 实体 7 自由度仿生手组装与运动校准 (v0.2.0)。
+* [ ] **专业级 sEMG 传感器的硬件集成与数据采集测试。**
+* [ ] 深入开发 sEMG 信号处理与特征提取算法。
 * [ ] 多通道信号分类 (引入机器学习进行复杂手势识别)。
 
 ---
 
 # ⚖️ 免责声明与安全警告
 
-**1. 仅限学术用途**: 本项目由 **周礼昊 (Lihao ZHOU)** 开发，属于香港大学 MSc IDT 课程研究成果.
-**2. 不提供担保**: 软件及硬件设计按“原样”提供，作者、校方及合作企业不对使用过程中的损坏负责.
-**3. 安全警告**: 系统涉及 **10A 大电流** 及高扭矩舵机，请严格遵守用电安全规范。
-**4. 非医疗设备**: 本项目为仿生机器人原型，**严禁**用于临床医疗或作为义肢替代品.
+**1. 仅限学术用途**: 本项目由 **周礼昊 (Lihao ZHOU)** 开发，属于香港大学 MSc IDT 课程研究成果，仅供学术研究使用。
+**2. 不提供担保**: 软件及硬件设计按“原样”提供，作者及香港大学不对使用过程中的任何物理或数据损坏负责。
+**3. 安全警告**: 系统涉及 **10A 大电流** 及高扭矩舵机，请严格遵守实验室用电安全规范。
+**4. 非医疗设备**: 本项目为学术验证用仿生机器人原型，**严禁**用于临床医疗或作为义肢替代品。
 
 ### 🙏 致谢
-特别感谢 **TetherIA** 团队提供的 Aero Hand Open 开源机械设计，为本项目的控制算法研究提供了坚实的硬件基础.
+特别感谢 **TetherIA** 团队提供的 Aero Hand Open 开源机械设计，为本项目的控制算法研究提供了坚实的硬件基础。
 
 ---
 
