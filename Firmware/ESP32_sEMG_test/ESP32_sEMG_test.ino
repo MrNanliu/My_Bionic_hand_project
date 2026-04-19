@@ -1,5 +1,5 @@
-const int PIN_SEMG1 = 34;
-const int PIN_SEMG2 = 35;
+const int PIN_SEMG1 = 35; 
+const int PIN_SEMG2 = 34; 
 
 const int WINDOW_SIZE = 50; 
 int history1[WINDOW_SIZE] = {0};
@@ -12,7 +12,6 @@ float auto_baseline2 = 0;
 void setup() {
   Serial.begin(115200);
   
-  // 初始化阶段：静止 3 秒以计算基准电压
   long sum_cal1 = 0;
   long sum_cal2 = 0;
   for(int i = 0; i < 300; i++) {
@@ -44,11 +43,8 @@ void loop() {
   float env1 = sum1 / (float)WINDOW_SIZE;
   float env2 = sum2 / (float)WINDOW_SIZE;
 
-  // 仅输出平滑后的包络数据，为分类算法提供干净的输入
-  Serial.print("Inner_Envelope:");
   Serial.print(env1);
   Serial.print(",");
-  Serial.print("Outer_Envelope:");
   Serial.println(env2);
 
   delay(10); 

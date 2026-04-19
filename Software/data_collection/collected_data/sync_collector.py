@@ -8,12 +8,15 @@ import os
 
 SERIAL_PORT = 'COM5'  
 BAUD_RATE = 115200
-SAVE_PATH = "collected_data"
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+SAVE_PATH = os.path.join(SCRIPT_DIR, "raw_datasets")
 
 if not os.path.exists(SAVE_PATH):
     os.makedirs(SAVE_PATH)
 
-FILENAME = f"{SAVE_PATH}/il_data_{int(time.time())}.csv"
+FILENAME = os.path.join(SAVE_PATH, f"il_data_{int(time.time())}.csv")
 
 try:
     ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=0.1)
@@ -80,6 +83,10 @@ try:
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.putText(image, f"Outer: {emg_outer:.1f}", (30, 90),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 165, 255), 2)
+        cv2.putText(image, f"Index Dist: {distances[0]:.2f}", (30, 150),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+        cv2.putText(image, f"Mid Dist: {distances[1]:.2f}", (30, 200),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
         cv2.imshow('TetherIA - Synchronised Data Collector', image)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):

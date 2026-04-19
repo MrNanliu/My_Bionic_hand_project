@@ -1,37 +1,39 @@
 import pandas as pd
-import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from sklearn.metrics import classification_report, confusion_matrix
 
-def train_baseline_svm(csv_file_path):
-    """
-    Initialise and train a baseline Support Vector Machine (SVM) model.
-    This function acts as a structural framework prior to the completion 
-    of the full data collection system.
-    """
-    
-    print(f"Loading dataset from: {csv_file_path}")
-    # 1. Load the dataset (using a placeholder file path for now)
-    # The expected CSV format: Time_ms, Inner_Env, Outer_Env, Label
-    data = pd.read_csv(csv_file_path)
+def train_svm_model(data_path):
+    try:
+        df = pd.read_csv(data_path)
+    except FileNotFoundError:
+        print(f"Error: Dataset {data_path} not found.")
+        return
 
-    # 2. Extract features (X) and target labels (y)
-    # Utilising the smoothed envelope values as primary physiological features
-    X = data[['Inner_Env', 'Outer_Env']].values
-    y = data['Label'].values
+    clean_df = df[df['Label'] != 0].copy()
 
-    # 3. Initialise the SVM classifier
-    # Employing a Radial Basis Function (RBF) kernel, suitable for non-linear biological signals
-    classifier = SVC(kernel='rbf', C=1.0, gamma='scale')
+    X = clean_df[['Inner_Env', 'Outer_Env']]
+    y = clean_df['Label']
 
-    # 4. Fit the model to the data
-    print("Commencing SVM training sequence...")
-    classifier.fit(X, y)
-    print("Training phase complete. The model is prepared for future integration.")
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    return classifier
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    print("Training SVM classifier with class balancing...")
+    svm_clf = SVC(kernel='rbf', C=1.0, gamma='scale', class_weight='balanced')
+    svm_clf.fit(X_train_scaled, y_train)
+
+    y_pred = svm_clf.predict(X_test_scaled)
+
+    print("\n--- Model Evaluation ---")
+    print("Confusion Matrix:")
+    print(confusion_matrix(y_test, y_pred))
+    print("\nClassification Report:")
+    print(classification_report(y_test, y_pred, target_names=['Fist (1)', 'Open (2)'], zero_division=0))
 
 if __name__ == "__main__":
-    # This section remains inactive until the dataset collection is finalised.
-    # Example instantiation:
-    # trained_model = train_baseline_svm("data/gesture_dataset.csv")
-    pass
+    dataset_file = r'E:\Bionic_hand\My_Bionic_hand_project\Software\data_collection\collected_data\raw_datasets\07_04_2026_(5)\il_data_1775547338_labelled.csv'
+    train_svm_model(dataset_file)
