@@ -35,5 +35,5 @@ def train_svm_model(data_path):
     print(classification_report(y_test, y_pred, target_names=['Fist (1)', 'Open (2)'], zero_division=0))
 
 if __name__ == "__main__":
-    dataset_file = r'E:\Bionic_hand\My_Bionic_hand_project\Software\data_collection\collected_data\raw_datasets\07_04_2026_(5)\il_data_1775547338_labelled.csv'
+    dataset_file = r'F:\Bionic_hand_project\My_Bionic_hand_project\Software\data_collection\collected_data\raw_datasets\17_04_2026_(4)\il_data_1775547338_labelled.csv'
     train_svm_model(dataset_file)
