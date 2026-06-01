@@ -116,12 +116,12 @@ def main():
     print(f"Comparison confusion matrices saved to: {cm_plot_path}")
 
     plt.figure(figsize=(10, 6))
-    sns.barplot(data=metrics_df, x='Model', y='Accuracy', hue='Split_Strategy', palette='Set2')
+    ax = sns.barplot(data=metrics_df, x='Model', y='Accuracy', hue='Split_Strategy', palette='Set2')
     plt.title('Accuracy Drop: Random Split vs Time-Based Split (Signal Drift Impact)')
     plt.ylim(0, 1)
-    for p in plt.gca().patches:
-        plt.gca().annotate(f"{p.get_height():.3f}", (p.get_x() + p.get_width() / 2., p.get_height()), 
-                           ha='center', va='center', xytext=(0, 9), textcoords='offset points')
+
+    for container in ax.containers:
+        ax.bar_label(container, fmt='%.3f', padding=3)
     
     bar_plot_path = f"{OUTPUT_DIR}/accuracy_drop_comparison.png"
     plt.savefig(bar_plot_path, dpi=300)
