@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 DATA_DIR = '../data_collection/collected_data/raw_datasets/**/*_labelled.csv'
-OUTPUT_DIR = '../data_collection/collected_data/benchmark_results'
-FEATURE_COLS = ['Inner_Env', 'Outer_Env']
+OUTPUT_DIR = '../data_collection/collected_data/benchmark_results_engineered'
+FEATURE_COLS = ['Inner_Env', 'Outer_Env', 'Diff', 'Ratio', 'Sum']
 LABEL_COL = 'Label'
 
 def load_and_preprocess_data():
@@ -28,6 +28,11 @@ def load_and_preprocess_data():
         df_list.append(df)
         
     combined_df = pd.concat(df_list, ignore_index=True)
+    
+    combined_df['Diff'] = combined_df['Inner_Env'] - combined_df['Outer_Env']
+    combined_df['Ratio'] = combined_df['Inner_Env'] / (combined_df['Outer_Env'] + 1e-5)
+    combined_df['Sum'] = combined_df['Inner_Env'] + combined_df['Outer_Env']
+
     combined_df = combined_df.dropna(subset=FEATURE_COLS + [LABEL_COL])
     
     X = combined_df[FEATURE_COLS].values
@@ -39,7 +44,7 @@ def evaluate_model(model, X_test, y_test, model_name, split_strategy):
     y_pred = model.predict(X_test)
     
     acc = accuracy_score(y_test, y_pred)
-    precision, recall, f1, _ = precision_recall_fscore_support(y_test, y_pred, average='macro')
+    precision, recall, f1, _ = precision_recall_fscore_support(y_test, y_pred, average='macro', zero_division=0)
     cm = confusion_matrix(y_test, y_pred)
     
     metrics = {
@@ -55,7 +60,7 @@ def evaluate_model(model, X_test, y_test, model_name, split_strategy):
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    print("Loading datasets...")
+    print("Loading datasets and calculating engineered features...")
     X, y = load_and_preprocess_data()
     
     strategies = {
@@ -104,8 +109,11 @@ def main():
     ]
     
     for key, ax, cmap, title in plot_configs:
-        sns.heatmap(all_cms[key], annot=True, fmt='d', cmap=cmap, ax=ax, 
-                    xticklabels=gesture_labels, yticklabels=gesture_labels)
+        try:
+            sns.heatmap(all_cms[key], annot=True, fmt='d', cmap=cmap, ax=ax, 
+                        xticklabels=gesture_labels, yticklabels=gesture_labels)
+        except ValueError:
+            sns.heatmap(all_cms[key], annot=True, fmt='d', cmap=cmap, ax=ax)
         ax.set_title(title)
         ax.set_ylabel('True Label')
         ax.set_xlabel('Predicted Label')

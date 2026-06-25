@@ -11,12 +11,16 @@ def train_svm_model(data_path):
         print(f"Error: Dataset {data_path} not found.")
         return
 
-    clean_df = df[df['Label'] != 0].copy()
+    df['Diff'] = df['Inner_Env'] - df['Outer_Env']
+    df['Ratio'] = df['Inner_Env'] / (df['Outer_Env'] + 1e-5)
+    df['Sum'] = df['Inner_Env'] + df['Outer_Env']
 
-    X = clean_df[['Inner_Env', 'Outer_Env']]
+    clean_df = df[df['Label'].isin([1, 2, 3, 4])].copy()
+
+    X = clean_df[['Inner_Env', 'Outer_Env', 'Diff', 'Ratio', 'Sum']]
     y = clean_df['Label']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
@@ -32,8 +36,8 @@ def train_svm_model(data_path):
     print("Confusion Matrix:")
     print(confusion_matrix(y_test, y_pred))
     print("\nClassification Report:")
-    print(classification_report(y_test, y_pred, target_names=['Fist (1)', 'Open (2)'], zero_division=0))
+    print(classification_report(y_test, y_pred, target_names=['Fist (1)', 'Wrist Up (2)', 'Wrist Down (3)', 'Pinch (4)'], zero_division=0))
 
 if __name__ == "__main__":
-    dataset_file = r'F:\Bionic_hand_project\My_Bionic_hand_project\Software\data_collection\collected_data\raw_datasets\17_04_2026_(4)\il_data_1775547338_labelled.csv'
+    dataset_file = r'YOUR_NEW_CSV_PATH_HERE.csv'
     train_svm_model(dataset_file)
