@@ -1,5 +1,4 @@
-# 🦾 sEMG-Based Bionic Hand Controller
-
+# 🦾 sEMG-Based and Deformation-Sensed Bionic Hand Controller
 ### *A Modular Human-Machine Interface based on TetherIA Open Architecture*
 
 <p align="center">
@@ -17,55 +16,81 @@ This project is an academic research initiative conducted at:
 
 * **Institution**: **The University of Hong Kong (HKU)**, Faculty of Engineering (MSc in Innovative Design and Technology programme).
 
-It focuses on developing a robust sEMG signal processing framework and integrating it with the **TetherIA Aero Hand** hardware to evaluate human-machine interaction methodologies.
+It focuses on developing a robust, multi-modal human-machine interaction framework—integrating both traditional **Surface Electromyography (sEMG)** and **Muscle Deformation Sensing (Hall-effect array)**—and interfacing it with the **TetherIA Aero Hand** open-source hardware architecture.
 
 ---
 
-## 🌟 Key Features (v0.2.0)
+## 🌟 Key Features (v0.3.0 Update)
 
-* **Advanced Firmware Architecture**: Migrated to **PlatformIO/VS Code** for modular C++ development on the ESP32-S3 microcontroller.
-* **Hardware Status**: Procurement of professional-grade sEMG sensors is complete; physical integration and testing are scheduled for the next development phase to replace the preliminary experimental modules.
-* **Optimised Hand Control**:
-    * **Smart Homing**: Custom auto-calibration logic for precise initial thumb posture (-10° abduction / +65° flexion).
-    * **Dynamic Restoration**: The system automatically restores optimal extension positions upon non-power resets (e.g., USB reconnection).
-* **Signal Processing**: Supports real-time sEMG acquisition with integrated anti-jitter algorithms (Moving Average Filter) to mitigate hardware noise.
-* **7-DOF Control**: Full dexterity control utilising 7x Feetech serial bus servos with real-time current and temperature protection.
+* **Multi-Modal Sensing Architecture**: Upgraded from single sEMG to a dual-track input framework, accommodating both bio-electric sEMG streams and UDP-based spatial deformation sensor streams.
+* **Decoupled Data Acquisition & Processing**: Implemented a modular software hierarchy separating data ingestion, physical signal parsing (baseline calibration, normalization), and control mapping.
+* **Optimised Hand Control**: Tailored specifically for controlling the 7-DOF robotic hand via continuous deformation mapping, ensuring smooth gesture translation despite low-frequency hardware constraints.
+* **Advanced Firmware**: Maintained PlatformIO/VS Code modular C++ development on the ESP32-S3 microcontroller for low-latency physical actuation.
 
-## 📂 Project Structure
+---
+
+## 📂 Detailed Project Directory Structure
 
 ```text
-My_Bionic_hand_project/
-├── Firmware/                  # ESP32-S3 Firmware Projects
-│   ├── Aero_Hand_Controller/  # [CORE] Main Bionic Hand Firmware
-│   ├── ESP32_EMG_Sensor/      # sEMG Signal Acquisition Firmware
-│   └── _OLD_EMG_Firmware/     # Legacy/Backup Archives
+MY_BIONIC_HAND_PROJECT/
+├── Firmware/                                 # ESP32-S3 firmware engineering
+│   ├── _OLD_EMG_Firmware/                    # [ARCHIVED] Legacy firmware backup archives
+│   ├── Aero_Hand_Controller/                 # [CORE] Bionic hand main control firmware
+│   ├── ESP32_ECG_test/                       # Legacy ECG testing firmware
+│   └── ESP32_sEMG_test/                      # Legacy sEMG testing firmware
 │
-├── Hardware/                  # Mechanical & Electrical Design (TetherIA Source)
-│   ├── Assembly/              # Bill of Materials
-│   ├── CAD/                   # 3D Models
-│   ├── PCB/                   # Circuit Schematics
-│   └── LICENSE                # Hardware Open Source License
+├── Hardware/                                 # Mechanical & electrical design (TetherIA source)
+│   ├── Assembly/                             # Bill of Materials (BOM) & assembly guides
+│   ├── CAD/                                  # 3D Model files (.step / .stl)
+│   ├── PCB/                                  # Circuit schematics & Gerber files
+│   └── LICENSE                               # Hardware open source license
 │
-├── Software/                  # Python Control System
-│   ├── sdk/                   # Core Drivers & GUI
-│   ├── control_scripts/       # Experimental Signal Processing Scripts
-│   ├── data_collection/       # Data Acquisition Pipelines
-│   │   ├── collected_data/    # Archive of recorded sEMG and vision datasets
-│   │   ├── sEMG_signal/       # Scripts for logging professional sEMG data
-│   │   └── Vision_capture/    # Scripts for camera-based feature extraction
-│   └── requirements.txt       # Python Dependencies
+├── Project_Docs/                             # 📄 Deliverables & research archives
+│   ├── biweekly-ppt/                         # Biweekly presentation materials
+│   ├── Gantt_Charts/                         # Project timeline management
+│   ├── Literatures/                          # Reference papers & academic literature
+│   ├── PowerPoints/                          # Defense materials & presentation slides
+│   ├── Relative_pics_&_videos/               # Experiment recordings & prototype photos
+│   ├── Reports/                              # Milestone reports & thesis drafts
+│   └── weekly/                               # Weekly reports and logs
 │
-├── Project_Docs/              # 📄 Deliverables & Research Archives
-│   ├── doc-tetheria-cad/      # Reference Mechanical Models
-│   ├── Gantt_Charts/          # Project Timeline Management
-│   ├── Literatures/           # Reference Papers
-│   ├── PowerPoints/           # Presentation Slides
-│   ├── Relative_pics_&_videos/# Visual documentation and experiment recordings
-│   └── Reports/               # Milestone Reports
+├── Software/                                 # Python control & multi-modal framework
+│   ├── control_scripts/                      # Algorithm modules & processing sandboxes
+│   │   ├── deformation_handlers/             # Muscle deformation arm-band handlers (Active Dev)
+│   │   │   ├── mapping.py                    # Deformation ADC values to servo angles mapping
+│   │   │   ├── new_classifier.py             # Lightweight classifier for low sample rates
+│   │   │   └── udp_parser.py                 # UDP stream parser, baseline calibration & normalization
+│   │   ├── sEMG_handlers/                    # [ARCHIVED] Legacy sEMG algorithm modules
+│   │   │   ├── emg_gesture_model.pkl         # Trained sEMG classification model parameters
+│   │   │   ├── Random_forest.py              # Random forest benchmark script
+│   │   │   └── SVM.py                        # Support Vector Machine benchmark script
+│   │   ├── compare_splits_benchmark.py       # Cross-validation algorithm comparison script
+│   │   ├── dsp_benchmark.py                  # Digital Signal Processing (DSP) benchmark script
+│   │   ├── old_model_benchmark.py            # [ARCHIVED] Legacy architecture benchmark
+│   │   ├── signal_quality_analysis.py        # Signal SNR & noise analysis script
+│   │   └── test.py                           # General algorithm validation scratchpad
+│   │
+│   ├── old_data_collection/                  # [ARCHIVED] Historical sEMG & vision data pipeline backup
+│   │   ├── collected_data/                   # Archive of recorded sEMG and vision datasets
+│   │   ├── sEMG_signal/                      # Scripts for logging professional sEMG data
+│   │   └── Vision_capture/                   # Scripts for camera-based feature extraction
+│   │
+│   ├── collected_data/                       # New unified muscle deformation data storage directory
+│   │   └── ...                               # Collected calibration/gesture data stream samples
+│   │
+│   ├── GUI_application/                      # Front-end, GUI, and runtime system
+│   │   ├── sEMG_raw_datasets/                # [ARCHIVED] Labelled historical csv data (e.g., il_data_*.csv)
+│   │   ├── data_streams.py                   # Multi-modal data interface (Switch between UDP/Files)
+│   │   ├── main.py                           # Main application entrypoint with device switcher logic
+│   │   └── model_handler.py                  # Model dispatcher (Dynamically loads models based on active device)
+│   └── sdk/                                  # Legacy/vendor SDK modules
 │
-├── .gitignore
-├── LICENSE                    # Project Code License (e.g., MIT)
-└── README.md                  # Project Documentation
+├── .gitattributes                            # Git attributes configuration
+├── .gitignore                                # Git ignore file
+├── emg_gesture_model.pkl                     # [ARCHIVED] Root legacy model weights backup
+├── LICENSE                                   # Project code MIT license
+├── MUJOCO_LOG.TXT                            # Physics simulation engine logs
+└── README.md                                 # Project documentation
 ```
 
 ---
