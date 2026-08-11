@@ -3,7 +3,6 @@ import mediapipe as mp
 import math
 import time
 
-# Initialise MediaPipe Hands
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(min_detection_confidence=0.7, min_tracking_confidence=0.7)
 cap = cv2.VideoCapture(0)
@@ -18,7 +17,6 @@ while cap.isOpened():
     current_timestamp = time.time()
     h, w, _ = image.shape
     
-    # Process RGB frame before flipping for accurate handedness detection
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     results = hands.process(image_rgb)
 
@@ -33,7 +31,6 @@ while cap.isOpened():
             if handedness.classification[0].label == "Right":
                 lm = hand_landmarks.landmark
                 
-                # Map normalised coordinates to flipped pixel coordinates (thumb tip)
                 t_x = int((1 - lm[4].x) * w) 
                 t_y = int(lm[4].y * h)
                 
@@ -44,7 +41,6 @@ while cap.isOpened():
                     f_x = int((1 - lm[tip_idx].x) * w)
                     f_y = int(lm[tip_idx].y * h)
                     
-                    # Calculate Euclidean distance
                     dist = math.hypot(f_x - t_x, f_y - t_y)
                     
                     cv2.line(image, (t_x, t_y), (f_x, f_y), (0, 0, 255), 2)
